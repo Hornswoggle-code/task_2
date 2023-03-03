@@ -11,7 +11,7 @@ holidays = holidays['Date'].values.compute()
 
 al.split_dates_holidays(all_transactions, holidays)
 
-"""
+
 al.sum_values_groupby_to_csv(all_transactions, 'Region_Lvl1', 'ActualSales', 'performance_stats/region_lvl1.csv')
 
 al.sum_values_groupby_to_csv(all_transactions, 'Region_Lvl2', 'ActualSales', 'performance_stats/region_lvl2.csv')
@@ -35,8 +35,8 @@ al.sum_values_groupby_to_csv(all_transactions[all_transactions['ProductCategory_
 
 al.sum_values_groupby_to_csv(all_transactions[all_transactions['ProductCategory_Lvl2'] == 'AE'], 'ProductKey',
                              'ActualSales', 'performance_stats/product_category_lvl2_ae.csv')
-"""
-"""
+
+
 al.sum_values_groupby_c(all_transactions, 'Week', 'ActualSales').reset_index().plot(x='Week', y='ActualSales')
 plt.savefig('plots/weekly_sales.png')
 
@@ -48,13 +48,13 @@ plt.savefig('plots/quarterly_sales.png')
 
 al.sum_values_groupby_c(all_transactions, ['Week', 'Region_Lvl1'], 'ActualSales').unstack().plot()
 plt.savefig('plots/regional_sales.png')
-"""
+
 al.sum_values_groupby_c(all_transactions, ['Week', 'ProductCategory_Lvl2'], 'ActualSales').unstack().plot()
 plt.savefig('plots/category_sales.png')
 
 al.sum_values_groupby_c(all_transactions, ['Week', 'ProductCategory_Lvl2'], 'ActualSales').unstack().plot(kind='area')
 plt.savefig('plots/category_sales2.png')
-"""
+
 al.sum_values_groupby_c(all_transactions, ['Week', 'ProductCategory_Lvl2'], 'UnitVolume').unstack().plot()
 plt.savefig('plots/volume_sales.png')
 
@@ -100,4 +100,4 @@ del monthly_increase
 plt.savefig('plots/sales_increase_cpi.png')
 
 print(al.mean_values_groupby(al.sum_values_groupby_c(all_transactions, ['TransactionDate', 'IsHoliday'], 'ActualSales').reset_index(), 'IsHoliday', 'ActualSales'))
-"""
+

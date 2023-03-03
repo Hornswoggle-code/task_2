@@ -1,4 +1,4 @@
-import pandas as pd
+import sys
 import matplotlib.pyplot as plt
 import analyze_lib as al
 import os
@@ -43,11 +43,9 @@ def deep_dive(product_key, transactions):
     plt.savefig(f'deep_dive_{product_key}/volume_percentage_{product_key}.png')
 
 
+transactions = al.read_files()
+al.split_dates(transactions)
 
-all_transactions = al.read_files()
-al.split_dates(all_transactions)
+for product_key in sys.argv[1:]:
+    deep_dive(int(product_key), transactions)
 
-deep_dive(49340, all_transactions)
-deep_dive(49341, all_transactions)
-deep_dive(49333, all_transactions)
-deep_dive(49329, all_transactions)
