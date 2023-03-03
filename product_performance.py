@@ -61,6 +61,18 @@ al.sum_values_groupby_c(all_transactions, 'TransactionDate', 'ActualSales').rese
 for date in holidays:
     ax.axvline(x=date, linestyle='dashed', alpha=0.5)
 
+fig, ax = plt.subplots()
+
+monthly_sales = al.sum_values_groupby_c(all_transactions, 'Month', 'ActualSales')
+monthly_sales_increase = (monthly_sales.diff() / (monthly_sales - monthly_sales.diff())).plot(x='Month', y='ActualSales', ax=ax)
+
+monthly_cpi = pd.read_excel('cpi/monthly_cpi.xlsx')
+monthly_cpi.rename(columns={'CPI_monthly ': 'CPI_monthly'}, inplace=True)
+monthly_cpi['Avg_change'] = monthly_cpi['CPI_monthly'].diff() / (monthly_cpi['CPI_monthly'] - monthly_cpi['CPI_monthly'].diff())
+monthly_increase = monthly_cpi.plot(x='Date_monthly', y='Avg_change', ax=ax)
+del monthly_sales_increase
+del monthly_increase
+
 print(al.mean_values_groupby(al.sum_values_groupby_c(all_transactions, ['TransactionDate', 'IsHoliday'], 'ActualSales').reset_index(), 'IsHoliday'))
 
 plt.show()
