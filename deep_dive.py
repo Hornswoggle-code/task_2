@@ -20,7 +20,7 @@ def deep_dive(product_key, transactions):
     plt.legend([f'ProductKey {product_key}', f'Avg ProductCategory {product_category_lvl2}'])
 
     (weekly_sales / al.sum_values_groupby_c(other_products, 'Week', 'ActualSales'))\
-        .reset_index().plot(x='Week', y='ActualSales', title=f'Sales percentage in product category {product_category_lvl2}', legend=False)
+        .reset_index().plot(x='Week', y='ActualSales', title=f'Sales percentage of product key {product_key} in product category {product_category_lvl2}', legend=False)
 
 
     fig, ax = plt.subplots()
@@ -32,7 +32,7 @@ def deep_dive(product_key, transactions):
 
     (weekly_volume / al.sum_values_groupby_c(other_products, 'Week', 'UnitVolume')) \
         .reset_index().plot(x='Week', y='UnitVolume',
-                            title=f'UnitVolume percentage in product category {product_category_lvl2}', legend=False)
+                            title=f'UnitVolume percentage of product key {product_key} in product category {product_category_lvl2}', legend=False)
 
 
 
