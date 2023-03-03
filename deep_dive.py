@@ -34,7 +34,6 @@ def deep_dive(product_key, transactions):
         .reset_index().plot(x='Week', y='UnitVolume',
                             title=f'UnitVolume percentage in product category {product_category_lvl2}', legend=False)
 
-    plt.show()
 
 
 all_transactions = al.read_files()
@@ -44,4 +43,6 @@ deep_dive(49340, all_transactions)
 deep_dive(49341, all_transactions)
 deep_dive(49333, all_transactions)
 deep_dive(49329, all_transactions)
+
+plt.show()
 
