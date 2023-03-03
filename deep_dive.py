@@ -41,11 +41,9 @@ all_transactions = al.read_files()
 al.split_dates(all_transactions)
 
 deep_dive(49340, all_transactions)
-"""
 deep_dive(49341, all_transactions)
 deep_dive(49333, all_transactions)
 deep_dive(49329, all_transactions)
-"""
 
 plt.show()
 
