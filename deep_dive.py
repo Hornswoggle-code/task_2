@@ -24,7 +24,8 @@ def deep_dive(product_key, transactions):
     plt.savefig(f'deep_dive_{product_key}/sales_vs_category_{product_key}.png')
 
     (weekly_sales / al.sum_values_groupby_c(other_products, 'Week', 'ActualSales'))\
-        .reset_index().plot(x='Week', y='ActualSales', title=f'Sales percentage in product category {product_category_lvl2}')
+        .reset_index().plot(x='Week', y='ActualSales',
+                            title=f'Sales percentage in product category {product_category_lvl2}')
     plt.legend([f'ProductKey {product_key}'])
     plt.savefig(f'deep_dive_{product_key}/sales_percentage_{product_key}.png')
 
