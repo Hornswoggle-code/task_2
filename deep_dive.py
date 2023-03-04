@@ -12,8 +12,11 @@ def deep_dive(product_key, transactions):
     product_values = product_transactions.iloc[0, [13, 14, 15]]
     brand_key, supplier_key, product_category_lvl2 = product_values
     other_products = transactions[(transactions['ProductCategory_Lvl2'] == product_category_lvl2)]
-    print(f'Deep dive for ProductKey {product_key}:')
-    print(product_values)
+
+    values = open(f'deep_dive_{product_key}/product_values.txt', 'w')
+    values.write(f'Deep dive for ProductKey {product_key}:')
+    values.write(product_values.to_string())
+    values.close()
 
     fig, ax = plt.subplots()
     weekly_sales = al.sum_values_groupby(product_transactions, 'Week', 'ActualSales')

@@ -1,0 +1,3 @@
+Deep dive for ProductKey 49340:BrandKey                      3521
+SupplierKey             1036290101
+ProductCategory_Lvl2            AA
