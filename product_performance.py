@@ -11,7 +11,6 @@ holidays = holidays['Date'].values.compute()
 
 al.split_dates_holidays(all_transactions, holidays)
 
-
 al.sum_values_groupby_to_csv(all_transactions, 'Region_Lvl1', 'ActualSales', 'performance_stats/region_lvl1.csv')
 
 al.sum_values_groupby_to_csv(all_transactions, 'Region_Lvl2', 'ActualSales', 'performance_stats/region_lvl2.csv')
@@ -39,6 +38,13 @@ al.sum_values_groupby_to_csv(all_transactions[all_transactions['ProductCategory_
 
 al.sum_values_groupby_c(all_transactions, 'Week', 'ActualSales').reset_index().plot(x='Week', y='ActualSales')
 plt.savefig('plots/weekly_sales.png')
+
+fig, ax = plt.subplots()
+al.sum_values_groupby_c(all_transactions, 'Week', 'ActualSales').reset_index().plot(x='Week', y='ActualSales', ax=ax)
+al.sum_values_groupby_c(all_transactions[all_transactions['SalesDiscount'] == 0], 'Week', 'ActualSales').reset_index()\
+    .plot(x='Week', y='ActualSales', ax=ax)
+plt.legend(['Weekly sales', 'Weekly sales without discount'])
+plt.savefig('plots/weekly_sales_without_discount.png')
 
 al.sum_values_groupby_c(all_transactions, 'Month', 'ActualSales').reset_index().plot(x='Month', y='ActualSales')
 plt.savefig('plots/monthly_sales.png')
