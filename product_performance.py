@@ -1,3 +1,5 @@
+import os
+
 from dask import dataframe as dd
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,6 +12,9 @@ holidays['Date'] = dd.to_datetime(holidays['Date'], dayfirst=True)
 holidays = holidays['Date'].values.compute()
 
 al.split_dates_holidays(all_transactions, holidays)
+
+if not os.path.exists('performance_stats'):
+    os.mkdir('performance_stats')
 
 al.sum_values_groupby_to_csv(all_transactions, 'Region_Lvl1', 'ActualSales', 'performance_stats/region_lvl1.csv')
 
@@ -35,6 +40,8 @@ al.sum_values_groupby_to_csv(all_transactions[all_transactions['ProductCategory_
 al.sum_values_groupby_to_csv(all_transactions[all_transactions['ProductCategory_Lvl2'] == 'AE'], 'ProductKey',
                              'ActualSales', 'performance_stats/product_category_lvl2_ae.csv')
 
+if not os.path.exists('plots'):
+    os.mkdir('plots')
 
 al.sum_values_groupby_c(all_transactions, 'Week', 'ActualSales').reset_index().plot(x='Week', y='ActualSales')
 plt.savefig('plots/weekly_sales.png')
@@ -87,7 +94,7 @@ al.mean_values_groupby(al.sum_values_groupby_c(all_transactions, ['TransactionDa
 plt.savefig('plots/workday_weekend_avg_sales.png')
 
 fig, ax = plt.subplots()
-al.sum_values_groupby_c(all_transactions, 'TransactionDate', 'ActualSales').reset_index().plot(x='TransactionDate', y='ActualSales', ax=ax)
+al.sum_values_groupby_c(all_transactions, 'TransactionDate', 'ActualSales').reset_index().plot(x='TransactionDate', y='ActualSales', ax=ax, figsize=(12, 4))
 for date in holidays:
     ax.axvline(x=date, linestyle='dashed', alpha=0.5)
 plt.savefig('plots/holiday_sales.png')
