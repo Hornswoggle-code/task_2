@@ -1,6 +1,7 @@
 import sys
 import matplotlib.pyplot as plt
 import analyze_lib as al
+from dask import dataframe as dd
 import os
 
 
@@ -14,7 +15,7 @@ def deep_dive(product_key, transactions):
     other_products = transactions[(transactions['ProductCategory_Lvl2'] == product_category_lvl2)]
 
     values = open(f'deep_dive_{product_key}/product_values.txt', 'w')
-    values.write(f'Deep dive for ProductKey {product_key}:')
+    values.write(f'Deep dive for ProductKey {product_key}:\n')
     values.write(product_values.to_string())
     values.close()
 
@@ -45,6 +46,17 @@ def deep_dive(product_key, transactions):
                             title=f'UnitVolume percentage in product category {product_category_lvl2}')
     plt.legend([f'ProductKey {product_key}'])
     plt.savefig(f'deep_dive_{product_key}/volume_percentage_{product_key}.png')
+
+    fig, ax = plt.subplots()
+    al.sum_values_groupby(product_transactions, 'TransactionDate', 'ActualSales').reset_index()\
+        .plot(x='TransactionDate', y='ActualSales', title='Daily sales and holidays', ax=ax, figsize=(12, 4))
+
+    holidays = dd.read_csv('holidays/all_holidays.csv')
+    holidays['Date'] = dd.to_datetime(holidays['Date'], dayfirst=True)
+    holidays = holidays['Date'].values.compute()
+    for date in holidays:
+        ax.axvline(x=date, linestyle='dashed', alpha=0.5)
+    plt.savefig(f'deep_dive_{product_key}/sales_holidays.png')
 
 
 transactions = al.read_files()

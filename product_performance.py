@@ -15,7 +15,7 @@ al.split_dates_holidays(all_transactions, holidays)
 
 if not os.path.exists('performance_stats'):
     os.mkdir('performance_stats')
-
+"""
 al.sum_values_groupby_to_csv(all_transactions, 'Region_Lvl1', 'ActualSales', 'performance_stats/region_lvl1.csv')
 
 al.sum_values_groupby_to_csv(all_transactions, 'Region_Lvl2', 'ActualSales', 'performance_stats/region_lvl2.csv')
@@ -79,10 +79,10 @@ plt.savefig('plots/ab_sales.png')
 
 al.sum_values_groupby_c(all_transactions[all_transactions['ProductCategory_Lvl2'] == 'AC'], ['Week', 'ProductKey'], 'ActualSales').unstack().plot(kind='area', legend=False)
 plt.savefig('plots/ac_sales.png')
-
+"""
 al.sum_values_groupby_c(all_transactions[all_transactions['ProductCategory_Lvl2'] == 'AD'], ['Week', 'ProductKey'], 'ActualSales').unstack().plot(kind='area', legend=False)
 plt.savefig('plots/ad_sales.png')
-
+"""
 al.sum_values_groupby_c(all_transactions[all_transactions['ProductCategory_Lvl2'] == 'AE'], ['Week', 'ProductKey'], 'ActualSales').unstack().plot(kind='area', legend=False)
 plt.savefig('plots/ae_sales.png')
 
@@ -113,4 +113,4 @@ del monthly_increase
 plt.savefig('plots/sales_increase_cpi.png')
 
 print(al.mean_values_groupby(al.sum_values_groupby_c(all_transactions, ['TransactionDate', 'IsHoliday'], 'ActualSales').reset_index(), 'IsHoliday', 'ActualSales'))
-
+"""
