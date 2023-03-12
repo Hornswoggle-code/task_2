@@ -1,3 +1,4 @@
-Deep dive for ProductKey 49329:BrandKey                      3521
+Deep dive for ProductKey 49329:
+BrandKey                      3521
 SupplierKey             1028407101
 ProductCategory_Lvl2            AC

@@ -113,4 +113,3 @@ del monthly_increase
 plt.savefig('plots/sales_increase_cpi.png')
 
 print(al.mean_values_groupby(al.sum_values_groupby_c(all_transactions, ['TransactionDate', 'IsHoliday'], 'ActualSales').reset_index(), 'IsHoliday', 'ActualSales'))
-

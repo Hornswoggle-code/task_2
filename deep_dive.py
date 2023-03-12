@@ -27,9 +27,15 @@ def deep_dive(product_key, transactions):
     plt.legend([f'ProductKey {product_key}', f'Avg ProductCategory {product_category_lvl2}'])
     plt.savefig(f'deep_dive_{product_key}/sales_vs_category_{product_key}.png')
 
+    fig, ax = plt.subplots()
+    holidays = dd.read_csv('holidays/all_holidays.csv')
+    holidays['Date'] = dd.to_datetime(holidays['Date'], dayfirst=True)
+    holidays = holidays['Date'].values.compute()
+    for date in holidays:
+        ax.axvline(x=date, linestyle='dashed', alpha=0.5)
     (weekly_sales / al.sum_values_groupby_c(other_products, 'Week', 'ActualSales'))\
         .reset_index().plot(x='Week', y='ActualSales',
-                            title=f'Sales percentage in product category {product_category_lvl2}')
+                            title=f'Sales percentage in product category {product_category_lvl2} and holidays', ax=ax)
     plt.legend([f'ProductKey {product_key}'])
     plt.savefig(f'deep_dive_{product_key}/sales_percentage_{product_key}.png')
 
@@ -45,18 +51,9 @@ def deep_dive(product_key, transactions):
         .reset_index().plot(x='Week', y='UnitVolume',
                             title=f'UnitVolume percentage in product category {product_category_lvl2}')
     plt.legend([f'ProductKey {product_key}'])
+
     plt.savefig(f'deep_dive_{product_key}/volume_percentage_{product_key}.png')
 
-    fig, ax = plt.subplots()
-    al.sum_values_groupby(product_transactions, 'TransactionDate', 'ActualSales').reset_index()\
-        .plot(x='TransactionDate', y='ActualSales', title='Daily sales and holidays', ax=ax, figsize=(12, 4))
-
-    holidays = dd.read_csv('holidays/all_holidays.csv')
-    holidays['Date'] = dd.to_datetime(holidays['Date'], dayfirst=True)
-    holidays = holidays['Date'].values.compute()
-    for date in holidays:
-        ax.axvline(x=date, linestyle='dashed', alpha=0.5)
-    plt.savefig(f'deep_dive_{product_key}/sales_holidays.png')
 
 
 transactions = al.read_files()
